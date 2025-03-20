@@ -1,0 +1,27 @@
+.homepageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+
+    .homepageText {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .homepageSubText {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .homepageBtn {
+        color: #000000;
+        font-weight: 600;
+        height: 40px;
+        border-radius: 2px;
+        border: 1px solid #000000;
+    }
+}
