@@ -2,6 +2,9 @@ import { Button, Input, Modal, Switch } from "antd"
 import "./index.scss";
 import { Formik } from 'formik';
 import * as Yup from 'yup'
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../redux/productsSlice";
+import { AppDispatch } from "../../redux/store";
 
 interface IAddProductForm {
     visibleModal: boolean;
@@ -11,16 +14,31 @@ interface IAddProductForm {
 interface IProductAddForm {
     productName: string;
     productImage?: string;
-    productPrice: number | null;
+    productPrice: number;
     stockInformation: boolean;
-    stockQuantity: number | null;
-    productWeight: number | null;
+    stockQuantity: number;
+    productWeight: number;
 }
 
 const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal }) => {
 
-    const onSubmitHandler = () => {
-        console.log("clicked!")
+    const dispatch = useDispatch<AppDispatch>();
+    const loading = useSelector((state: any) => state.products.loading);
+
+    const onSubmitHandler = (values: IProductAddForm, { resetForm }: any) => {
+        dispatch(addProduct({
+            productName: values.productName,
+            productImage: values.productImage || '',
+            productPrice: values.productPrice,
+            productWeight: values.productWeight,
+            stockInformation: values.stockInformation,
+            stockQuantity: values.stockQuantity
+        })).unwrap().then(() => {
+            resetForm();
+            closeModal();
+        }).catch((error) => {
+            console.log("Ürün eklenirken hata oluştu : ", error)
+        })
     }
     return (
         <Modal
@@ -32,10 +50,10 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
                 initialValues={{
                     productName: "",
                     productImage: "",
-                    productPrice: null,
+                    productPrice: 0,
                     stockInformation: true,
-                    stockQuantity: null,
-                    productWeight: null,
+                    stockQuantity: 0,
+                    productWeight: 0,
                 }}
                 validationSchema={Yup.object({
                     productName: Yup.string().required("Ürün Adı Zorunlu Alandır!"),
@@ -149,8 +167,8 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
                                 >
                                     Formu Resetle
                                 </Button>
-                                <Button type="primary" htmlType="submit">
-                                    Kaydet
+                                <Button type="primary" htmlType="submit" disabled={loading}>
+                                    {loading ? "Kaydediliyor" : "Kaydet"}
                                 </Button>
                             </div>
                         </div>
