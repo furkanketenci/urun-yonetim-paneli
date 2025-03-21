@@ -12,16 +12,16 @@ const Homepage = () => {
     return (
         <div className="homepageContainer">
             <div className="homepageText">
-                Welcome to the Product Management Panel!
+                Ürün Yönetim Paneline Hoş Geldiniz!
             </div>
-            <div className="homepageSubText">In this panel, users can add new products, list existing products, update their status, and delete products whenever they wish.
+            <div className="homepageSubText">Kullanıcılar bu panelde diledikleri zaman yeni ürün ekleyebilir, mevcut ürünlerini listeleyebilir, durumlarını güncelleyebilir ve ürünleri silebilir.
             </div>
             <Button
                 type="text"
                 className="homepageBtn"
                 onClick={redirectFunc}
             >
-                Click here to get started!
+                Başlamak için buraya tıklayın!
             </Button>
         </div>
     )

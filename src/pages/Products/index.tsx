@@ -12,20 +12,19 @@ const Products = () => {
 
     return (
         <div className="productsContainer">
-            <div className="productsTitle">PRODUCTS</div>
+            <div className="productsTitle">ÜRÜNLER</div>
             <div className="productsButtonWrapper">
                 <Button
                     onClick={toggleAddProductForm}
                     className="productsBtn"
                 >
-                    Add New Product
+                    Yeni Ürün Ekle
                 </Button>
 
                 {isShowAddProductForm &&
                     <AddProductForm
                         visibleModal={isShowAddProductForm}
                         closeModal={toggleAddProductForm}
-                        isCompleted={toggleAddProductForm}
                     />
                 }
             </div>
