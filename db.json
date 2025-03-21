@@ -1,0 +1,103 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "productName": "Su",
+      "productImage": "https://market-product-images-cdn.getirapi.com/product/2d72b49a-2678-4924-bbfd-5d548c2adf57.jpg",
+      "productPrice": 20,
+      "stockInformation": true,
+      "stockQuantity": 25,
+      "productWeight": 1
+    },
+    {
+      "id": "2",
+      "productName": "Buz Küpü",
+      "productImage": "https://cdn.getir.com/product/5c73d40ba194970001855433_1551185494917.jpeg?v=1551185503101",
+      "productPrice": 42,
+      "stockInformation": true,
+      "stockQuantity": 35,
+      "productWeight": 5
+    },
+    {
+      "id": "3",
+      "productName": "Eti Karam Gurme",
+      "productImage": "https://market-product-images-cdn.getirapi.com/badge/5a62a0d2-4494-4333-9c06-bab3f3cc47a9.png",
+      "productPrice": 12,
+      "stockInformation": true,
+      "stockQuantity": 56,
+      "productWeight": 0.1
+    },
+    {
+      "id": "5",
+      "productName": "Ruffles Originals",
+      "productImage": "https://market-product-images-cdn.getirapi.com/product/b3a49501-8d15-4a95-a450-67edd9b7b1de.jpg",
+      "productPrice": 14,
+      "stockInformation": false,
+      "stockQuantity": 0,
+      "productWeight": 0.16
+    },
+    {
+      "id": "6",
+      "productName": "Sütaş Tam Yağlı Süt",
+      "productImage": "https://market-product-images-cdn.getirapi.com/product/b3a49501-8d15-4a95-a450-67edd9b7b1de.jpg",
+      "productPrice": 52,
+      "stockInformation": false,
+      "stockQuantity": 0,
+      "productWeight": 5
+    },
+    {
+      "id": "7",
+      "productName": "Pursü Cam",
+      "productImage": "https://market-product-images-cdn.getirapi.com/product/b3a49501-8d15-4a95-a450-67edd9b7b1de.jpg",
+      "productPrice": 28,
+      "stockInformation": true,
+      "stockQuantity": 100,
+      "productWeight": 2.8
+    },
+    {
+      "id": "8",
+      "productName": "Eti Sütlü Çikolatalı Gofret",
+      "productImage": "https://market-product-images-cdn.getirapi.com/product/b3a49501-8d15-4a95-a450-67edd9b7b1de.jpg",
+      "productPrice": 55,
+      "stockInformation": true,
+      "stockQuantity": 128,
+      "productWeight": 1.1
+    },
+    {
+      "id": "90ef",
+      "productName": "a",
+      "productImage": "",
+      "productPrice": 0,
+      "productWeight": 0,
+      "stockInformation": true,
+      "stockQuantity": 0
+    },
+    {
+      "id": "ec92",
+      "productName": "11",
+      "productImage": "",
+      "productPrice": 0,
+      "productWeight": 0,
+      "stockInformation": true,
+      "stockQuantity": 123
+    },
+    {
+      "id": "cce7",
+      "productName": "aaa",
+      "productImage": "",
+      "productPrice": 0,
+      "productWeight": 0,
+      "stockInformation": true,
+      "stockQuantity": 0
+    },
+    {
+      "id": "580b",
+      "productName": "ab",
+      "productImage": "",
+      "productPrice": 0,
+      "productWeight": 0,
+      "stockInformation": true,
+      "stockQuantity": 0
+    }
+  ]
+}
