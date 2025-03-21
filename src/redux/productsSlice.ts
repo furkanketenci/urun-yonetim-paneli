@@ -9,6 +9,22 @@ interface IProductsState {
 
 const API_URL = "http://localhost:3002"
 
+// tüm ürünleri getirme işlemi start
+
+export const allProducts = createAsyncThunk(
+    "allProducts",
+    async () => {
+        const response = await fetch(`${API_URL}/products`);
+        if (!response.ok) {
+            throw new Error("Ürünler çekilirken bir hata oluştu!")
+        }
+        const data = await response.json();
+        return data;
+    }
+)
+
+// tüm ürünleri getirme işlemi end
+
 export const addProduct = createAsyncThunk(
     "addProduct",
     async (product: Omit<IProduct, "id">) => {
@@ -22,7 +38,7 @@ export const addProduct = createAsyncThunk(
         if (!response.ok) {
             throw new Error("Ürün eklenirken bir hata oluştu!")
         }
-        const data = response.json();
+        const data = await response.json();
         return data;
     }
 )
@@ -50,6 +66,21 @@ export const productsSlice = createSlice({
             state.loading = false;
         })
         // ADD PRODUCT END
+
+        // GET ALL PRODUCTS START 
+
+        builder.addCase(allProducts.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(allProducts.fulfilled, (state, action) => {
+            state.loading = false;
+            state.items = action.payload;
+        });
+        builder.addCase((allProducts.rejected), (state) => {
+            state.loading = false;
+        })
+
+        // GET ALL PRODUCTS END 
     }
 })
 
