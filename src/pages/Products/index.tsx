@@ -2,6 +2,7 @@ import { Button } from "antd"
 import "./index.scss"
 import { useState } from "react";
 import AddProductForm from "../../components/AddProductForm";
+import ProductList from "../../components/ProductList";
 
 const Products = () => {
     const [isShowAddProductForm, setIsShowAddProductForm] = useState(false);
@@ -28,6 +29,7 @@ const Products = () => {
                     />
                 }
             </div>
+            <ProductList />
         </div>
     )
 }
