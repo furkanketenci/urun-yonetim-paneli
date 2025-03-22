@@ -10,7 +10,6 @@ interface IProductsState {
 const API_URL = "http://localhost:3002"
 
 // tüm ürünleri getirme işlemi start
-
 export const allProducts = createAsyncThunk(
     "allProducts",
     async () => {
@@ -22,9 +21,9 @@ export const allProducts = createAsyncThunk(
         return data;
     }
 )
-
 // tüm ürünleri getirme işlemi end
 
+// ürün ekleme işlemi start
 export const addProduct = createAsyncThunk(
     "addProduct",
     async (product: Omit<IProduct, "id">) => {
@@ -42,6 +41,29 @@ export const addProduct = createAsyncThunk(
         return data;
     }
 )
+// ürün ekleme işlemi start
+
+// ürün güncelleme işlemi start
+
+export const updateProduct = createAsyncThunk(
+    "updateProduct",
+    async (product: IProduct) => {
+        const response = await fetch(`${API_URL}/products/${product.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product)
+        })
+        if (!response.ok) {
+            throw new Error("Ürün güncellenirken bir hata oluştu!")
+        }
+        const data = await response.json();
+        return data;
+    }
+)
+
+// ürün güncelleme işlemi end
 
 const initialState: IProductsState = {
     items: [],
@@ -54,7 +76,7 @@ export const productsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        // ADD PRODUCT START
+        // Ürün ekleme start
         builder.addCase(addProduct.pending, (state) => {
             state.loading = true;
         });
@@ -65,9 +87,9 @@ export const productsSlice = createSlice({
         builder.addCase(addProduct.rejected, (state) => {
             state.loading = false;
         })
-        // ADD PRODUCT END
+        // Ürün ekleme END
 
-        // GET ALL PRODUCTS START 
+        // Tüm ürünleri al START 
 
         builder.addCase(allProducts.pending, (state) => {
             state.loading = true;
@@ -80,7 +102,23 @@ export const productsSlice = createSlice({
             state.loading = false;
         })
 
-        // GET ALL PRODUCTS END 
+        // Tüm ürünleri al END 
+
+        // Ürünü güncelle START
+        builder.addCase((updateProduct.pending), (state) => {
+            state.loading = true;
+        });
+        builder.addCase((updateProduct.fulfilled), (state, action) => {
+            state.loading = false;
+            const index = state.items.findIndex(item => item.id === action.payload.id);
+            if (index != -1) {
+                state.items[index] = action.payload
+            }
+        });
+        builder.addCase((updateProduct.rejected), (state) => {
+            state.loading = false;
+        });
+        // Ürünü güncelLe END
     }
 })
 

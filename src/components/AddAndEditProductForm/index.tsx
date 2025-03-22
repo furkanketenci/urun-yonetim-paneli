@@ -3,12 +3,14 @@ import "./index.scss";
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../redux/productsSlice";
+import { addProduct, updateProduct } from "../../redux/productsSlice";
 import { AppDispatch } from "../../redux/store";
+import { IProduct } from "../../types";
 
-interface IAddProductForm {
+interface IAddAndEditProductForm {
     visibleModal: boolean;
     closeModal: () => void;
+    editingProduct?: IProduct | null;
 }
 
 interface IProductAddForm {
@@ -20,25 +22,43 @@ interface IProductAddForm {
     productWeight: number;
 }
 
-const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal }) => {
+const AddAndEditProductForm: React.FC<IAddAndEditProductForm> = ({ visibleModal, closeModal, editingProduct }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const loading = useSelector((state: any) => state.products.loading);
 
     const onSubmitHandler = (values: IProductAddForm, { resetForm }: any) => {
-        dispatch(addProduct({
-            productName: values.productName,
-            productImage: values.productImage || '',
-            productPrice: values.productPrice,
-            productWeight: values.productWeight,
-            stockInformation: values.stockInformation,
-            stockQuantity: values.stockQuantity
-        })).unwrap().then(() => {
-            resetForm();
-            closeModal();
-        }).catch((error) => {
-            console.log("Ürün eklenirken hata oluştu : ", error)
-        })
+
+        if (editingProduct) {
+            dispatch(updateProduct({
+                ...editingProduct,
+                productName: values.productName,
+                productImage: values.productImage || '',
+                productPrice: values.productPrice,
+                productWeight: values.productWeight,
+                stockInformation: values.stockInformation,
+                stockQuantity: values.stockQuantity
+            })).unwrap().then(() => {
+                resetForm();
+                closeModal();
+            }).catch((error) => {
+                console.log("Ürün güncellenirken hata oluştu : ", error)
+            })
+        } else {
+            dispatch(addProduct({
+                productName: values.productName,
+                productImage: values.productImage || '',
+                productPrice: values.productPrice,
+                productWeight: values.productWeight,
+                stockInformation: values.stockInformation,
+                stockQuantity: values.stockQuantity
+            })).unwrap().then(() => {
+                resetForm();
+                closeModal();
+            }).catch((error) => {
+                console.log("Ürün eklenirken hata oluştu : ", error)
+            })
+        }
     }
     return (
         <Modal
@@ -47,20 +67,30 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
             footer={null}
         >
             <Formik<IProductAddForm>
-                initialValues={{
-                    productName: "",
-                    productImage: "",
-                    productPrice: 0,
-                    stockInformation: true,
-                    stockQuantity: 0,
-                    productWeight: 0,
-                }}
+                initialValues={
+                    editingProduct ? {
+                        productName: editingProduct.productName,
+                        // productImage: editingProduct.productImage,
+                        productPrice: editingProduct.productPrice,
+                        stockInformation: editingProduct.stockInformation,
+                        stockQuantity: editingProduct.stockQuantity,
+                        productWeight: editingProduct.productWeight,
+                    } : {
+                        productName: "",
+                        productImage: "",
+                        productPrice: 0,
+                        stockInformation: true,
+                        stockQuantity: 0,
+                        productWeight: 0,
+                    }
+                }
+                enableReinitialize
                 validationSchema={Yup.object({
                     productName: Yup.string().required("Ürün Adı Zorunlu Alandır!"),
-                    productPrice: Yup.number().min(0, "Ürün fiyatı Negatif Değer Olamaz!").required("Ürün Fiyatı Zorunlu Alandır!"),
+                    productPrice: Yup.number().min(1, "Ürün fiyatı Negatif Değer Olamaz!").required("Ürün Fiyatı Zorunlu Alandır!"),
                     stockInformation: Yup.boolean().required("Stok Durum Bilgisi Zorunlu Alandır!"),
                     stockQuantity: Yup.number().min(0, "Stok Adet Bilgisi Negatif Değer Olamaz!").required("Stok Adet Bilgisi Zorunlu Alandır!"),
-                    productWeight: Yup.number().min(0, "Ürün Ağırlık Bilgisi Negatif Değer Olamaz!").required("Ürün Ağırlık Bilgisi Zorunlu Alandır!"),
+                    productWeight: Yup.number().min(1, "Ürün Ağırlık Bilgisi Negatif Değer Olamaz!").required("Ürün Ağırlık Bilgisi Zorunlu Alandır!"),
 
                 })}
                 onSubmit={onSubmitHandler}
@@ -92,7 +122,7 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
                             <div className="formSection">
                                 <div className="formFieldTitle">Ürün Fotoğrafı:</div>
                                 <Input
-                                    type="file"
+                                    type="text"
                                     placeholder="Lütfen Ürün Fotoğrafı Ekleyiniz"
                                     name="productImage"
                                     onChange={handleChange}
@@ -106,7 +136,7 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
                                     type="number"
                                     placeholder="Lütfen Ürün Fiyatını Giriniz"
                                     name="productPrice"
-                                    value={values.productPrice ?? ""}
+                                    value={values.productPrice}
                                     status={errors.productPrice && touched.productPrice ? 'error' : ''}
                                     onChange={handleChange}
                                 />
@@ -152,7 +182,7 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
                                     name="productWeight"
                                     type="number"
                                     placeholder="Lütfen Ürün Ağırlık Bilgisi Giriniz"
-                                    value={values.productWeight ?? ""}
+                                    value={values.productWeight}
                                     onChange={handleChange}
                                     status={errors.productWeight && touched.productWeight ? 'error' : ''}
                                 />
@@ -179,4 +209,4 @@ const AddProductForm: React.FC<IAddProductForm> = ({ visibleModal, closeModal })
     )
 }
 
-export default AddProductForm
+export default AddAndEditProductForm
