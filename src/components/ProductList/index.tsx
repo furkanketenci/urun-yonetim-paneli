@@ -3,22 +3,28 @@ import "./index.scss";
 import { useEffect, useState } from "react";
 import { allProducts, deleteProduct } from "../../redux/productsSlice";
 import { AppDispatch, RootState } from "../../redux/store";
-import { Button, Modal, Space, Table } from "antd";
+import { Button, Input, Modal, notification, Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IProduct } from "../../types";
 import { setModalContent, showAndHide } from "../../redux/modalSlice";
 
 const ProductList = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+
+    const [isShowDeleteModal, setIsShowDeleteModal] = useState<boolean>(false);
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>(searchTerm);
+
     const { items, loading } = useSelector((state: RootState) => state.products);
+    const [api, contextHolder] = notification.useNotification();
 
     useEffect(() => {
         dispatch(allProducts())
     }, [dispatch])
 
-    const updateModalTrigger = (data: any) => {
+    const updateModalTrigger = (data: IProduct) => {
         dispatch(setModalContent(data))
         dispatch(showAndHide(true))
     }
@@ -29,8 +35,16 @@ const ProductList = () => {
         try {
             await dispatch(deleteProduct(selectedProductId)).unwrap();
             hideDeleteModal();
+            api.success({
+                message: '',
+                description: 'Ürün başarıyla silindi!'
+            });
         } catch (error) {
-            console.log('Ürün silinirken bir hata oluştu');
+            console.log('Ürün silinirken bir hata oluştu!');
+            api.error({
+                message: '',
+                description: 'Ürün silinirken bir hata oluştu!'
+            });
         }
     }
 
@@ -44,6 +58,20 @@ const ProductList = () => {
         setSelectedProductId(null);
     }
 
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 300);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchTerm]);
+
+    const filteredItems = items.filter(item =>
+        item.productName.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+    );
+
     const columns: ColumnsType<IProduct> = [
         {
             title: "Ürün Adı",
@@ -52,6 +80,7 @@ const ProductList = () => {
             align: "center",
             sorter: (a, b) => a.productName.localeCompare(b.productName),
             sortDirections: ['ascend', 'descend'],
+            ellipsis: true
         },
         {
             title: "Ürün Resmi",
@@ -105,7 +134,6 @@ const ProductList = () => {
                         type="primary"
                         onClick={() => {
                             updateModalTrigger(item)
-                            showDeleteModal(item.id)
                         }}>
                         Güncelle
                     </Button>
@@ -118,21 +146,33 @@ const ProductList = () => {
     ]
 
     return (
-        <div className="productListContainer">
-            <Table
-                columns={columns}
-                dataSource={items}
-                loading={loading}
-            />
-            <Modal
-                open={isShowDeleteModal}
-                title="Bu işlemi yapmak istediğinize emin misiniz?"
-                onOk={handleDelete}
-                onCancel={hideDeleteModal}
-                confirmLoading={loading}
-            >
-            </Modal>
-        </div>
+        <>
+            {contextHolder}
+            <div className="productListContainer">
+                <Input
+                    className="searchInput"
+                    placeholder="Ürün adı ile ara..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+
+                <Table
+                    columns={columns}
+                    dataSource={filteredItems}
+                    loading={loading}
+                    size="large"
+                    rowClassName={() => 'table-row'}
+                />
+                <Modal
+                    open={isShowDeleteModal}
+                    title="Bu işlemi yapmak istediğinize emin misiniz?"
+                    onOk={handleDelete}
+                    onCancel={hideDeleteModal}
+                    confirmLoading={loading}
+                >
+                </Modal>
+            </div>
+        </>
     )
 }
 export default ProductList
