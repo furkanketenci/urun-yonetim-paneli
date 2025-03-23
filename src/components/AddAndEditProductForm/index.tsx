@@ -199,7 +199,7 @@ const AddAndEditProductForm = () => {
                                         type="number"
                                         placeholder="Lütfen Stok Adet Bilgisi Giriniz"
                                         name="stockQuantity"
-                                        value={values.stockQuantity || undefined}
+                                        value={values.stockQuantity}
                                         onChange={handleChange}
                                         status={errors.stockQuantity && touched.stockQuantity ? 'error' : ''}
                                     />
