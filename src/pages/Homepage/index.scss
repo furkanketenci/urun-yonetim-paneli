@@ -12,10 +12,26 @@
         font-size: 36px;
         font-weight: 600;
         margin-bottom: 15px;
+        text-align: center;
+
+        @include xl {
+            font-size: 32px;
+        }
 
         @include lg {
+            font-size: 28px;
+        }
+
+        @include md {
             font-size: 24px;
-            text-align: center;
+        }
+
+        @include sm {
+            font-size: 22px;
+        }
+
+        @include xs {
+            font-size: 20px;
         }
 
     }
@@ -23,10 +39,32 @@
     .homepageSubText {
         font-size: 20px;
         margin-bottom: 15px;
+        text-align: center;
+        max-width: 800px;
+
+        @include xl {
+            font-size: 18px;
+            max-width: 700px;
+        }
 
         @include lg {
-            font-size: 18px;
-            text-align: center;
+            font-size: 17px;
+            max-width: 600px;
+        }
+
+        @include md {
+            font-size: 16px;
+            max-width: 500px;
+        }
+
+        @include sm {
+            font-size: 15px;
+
+        }
+
+        @include xs {
+            font-size: 14px;
+            max-width: 350px;
         }
 
 
@@ -41,7 +79,23 @@
 
         @include lg {
             font-weight: 500;
-            font-size: 18px;
+            font-size: 17px;
+            height: 38px;
+        }
+
+        @include md {
+            font-size: 16px;
+            height: 36px;
+        }
+
+        @include sm {
+            font-size: 15px;
+            height: 34px;
+        }
+
+        @include xs {
+            font-size: 14px;
+            height: 32px;
         }
 
 

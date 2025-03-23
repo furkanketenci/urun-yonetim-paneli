@@ -12,7 +12,7 @@ $breakpoint-xl : 1200px;
 }
 
 @mixin sm {
-    @media (max-width : #{$breakpoint-sn}) {
+    @media (max-width : #{$breakpoint-sm}) {
         @content;
     }
 }

@@ -11,12 +11,6 @@
         margin-bottom: 20px;
         width: 20%;
 
-
-
-        @include md {
-            width: 100%;
-        }
-
         @include lg {
             width: 40%;
         }
