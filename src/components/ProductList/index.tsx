@@ -1,22 +1,48 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./index.scss";
-import { useEffect } from "react";
-import { allProducts } from "../../redux/productsSlice";
+import { useEffect, useState } from "react";
+import { allProducts, deleteProduct } from "../../redux/productsSlice";
 import { AppDispatch, RootState } from "../../redux/store";
-import { Button, Space, Table } from "antd";
+import { Button, Modal, Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IProduct } from "../../types";
+import { setModalContent, showAndHide } from "../../redux/modalSlice";
 
 const ProductList = () => {
-    const { items, loading } = useSelector((state: RootState) => state.products);
-
     const dispatch = useDispatch<AppDispatch>();
+    const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+    const { items, loading } = useSelector((state: RootState) => state.products);
 
     useEffect(() => {
         dispatch(allProducts())
     }, [dispatch])
 
-    console.log("items", items)
+    const updateModalTrigger = (data: any) => {
+        dispatch(setModalContent(data))
+        dispatch(showAndHide(true))
+    }
+
+    const handleDelete = async () => {
+        if (!selectedProductId) return;
+
+        try {
+            await dispatch(deleteProduct(selectedProductId)).unwrap();
+            hideDeleteModal();
+        } catch (error) {
+            console.log('Ürün silinirken bir hata oluştu');
+        }
+    }
+
+    const showDeleteModal = (productId: number) => {
+        setSelectedProductId(productId);
+        setIsShowDeleteModal(true)
+    }
+
+    const hideDeleteModal = () => {
+        setIsShowDeleteModal(false);
+        setSelectedProductId(null);
+    }
 
     const columns: ColumnsType<IProduct> = [
         {
@@ -73,12 +99,17 @@ const ProductList = () => {
             title: 'İşlemler',
             key: 'actions',
             align: "center",
-            render: () => (
+            render: (_, item) => (
                 <Space size="middle">
-                    <Button type="primary">
+                    <Button
+                        type="primary"
+                        onClick={() => {
+                            updateModalTrigger(item)
+                            showDeleteModal(item.id)
+                        }}>
                         Güncelle
                     </Button>
-                    <Button type="primary" danger>
+                    <Button type="primary" danger onClick={() => showDeleteModal(item.id)}>
                         Sil
                     </Button>
                 </Space>
@@ -93,6 +124,14 @@ const ProductList = () => {
                 dataSource={items}
                 loading={loading}
             />
+            <Modal
+                open={isShowDeleteModal}
+                title="Bu işlemi yapmak istediğinize emin misiniz?"
+                onOk={handleDelete}
+                onCancel={hideDeleteModal}
+                confirmLoading={loading}
+            >
+            </Modal>
         </div>
     )
 }

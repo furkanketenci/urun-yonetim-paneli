@@ -4,14 +4,8 @@ import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, updateProduct } from "../../redux/productsSlice";
-import { AppDispatch } from "../../redux/store";
-import { IProduct } from "../../types";
-
-interface IAddAndEditProductForm {
-    visibleModal: boolean;
-    closeModal: () => void;
-    editingProduct?: IProduct | null;
-}
+import { AppDispatch, RootState } from "../../redux/store";
+import { showAndHide } from "../../redux/modalSlice";
 
 interface IProductAddForm {
     productName: string;
@@ -22,13 +16,17 @@ interface IProductAddForm {
     productWeight: number;
 }
 
-const AddAndEditProductForm: React.FC<IAddAndEditProductForm> = ({ visibleModal, closeModal, editingProduct }) => {
+const AddAndEditProductForm = () => {
+    const { modalContent: editingProduct, isShow } = useSelector((state: RootState) => state.modal);
 
     const dispatch = useDispatch<AppDispatch>();
     const loading = useSelector((state: any) => state.products.loading);
 
-    const onSubmitHandler = (values: IProductAddForm, { resetForm }: any) => {
+    const showModalTrigger = (isShowModal: boolean) => {
+        dispatch(showAndHide(isShowModal))
+    }
 
+    const onSubmitHandler = (values: IProductAddForm, { resetForm }: any) => {
         if (editingProduct) {
             dispatch(updateProduct({
                 ...editingProduct,
@@ -40,7 +38,7 @@ const AddAndEditProductForm: React.FC<IAddAndEditProductForm> = ({ visibleModal,
                 stockQuantity: values.stockQuantity
             })).unwrap().then(() => {
                 resetForm();
-                closeModal();
+                showModalTrigger(false);
             }).catch((error) => {
                 console.log("Ürün güncellenirken hata oluştu : ", error)
             })
@@ -54,7 +52,7 @@ const AddAndEditProductForm: React.FC<IAddAndEditProductForm> = ({ visibleModal,
                 stockQuantity: values.stockQuantity
             })).unwrap().then(() => {
                 resetForm();
-                closeModal();
+                showModalTrigger(false);
             }).catch((error) => {
                 console.log("Ürün eklenirken hata oluştu : ", error)
             })
@@ -62,8 +60,8 @@ const AddAndEditProductForm: React.FC<IAddAndEditProductForm> = ({ visibleModal,
     }
     return (
         <Modal
-            open={visibleModal}
-            onCancel={closeModal}
+            open={isShow}
+            onCancel={() => showModalTrigger(false)}
             footer={null}
         >
             <Formik<IProductAddForm>

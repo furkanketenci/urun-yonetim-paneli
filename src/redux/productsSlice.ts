@@ -4,7 +4,6 @@ import { IProduct } from '../types';
 interface IProductsState {
     items: IProduct[];
     loading: boolean;
-    error: string | null;
 }
 
 const API_URL = "http://localhost:3002"
@@ -65,10 +64,29 @@ export const updateProduct = createAsyncThunk(
 
 // ürün güncelleme işlemi end
 
+// ürün silme işlemi start 
+
+export const deleteProduct = createAsyncThunk(
+    "deleteProduct",
+    async (productId: number) => {
+        const response = await fetch(`${API_URL}/products/${productId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        if (!response.ok) {
+            throw new Error("Ürün silinirken bir hata oluştu!");
+        }
+        return productId;
+    }
+)
+
+// ürün silme işlemi end
+
 const initialState: IProductsState = {
     items: [],
     loading: false,
-    error: null
 }
 
 export const productsSlice = createSlice({
@@ -119,6 +137,19 @@ export const productsSlice = createSlice({
             state.loading = false;
         });
         // Ürünü güncelLe END
+
+        // Ürünü sil START
+        builder.addCase(deleteProduct.pending, (state) => {
+            state.loading = true;
+        })
+        builder.addCase(deleteProduct.fulfilled, (state, action) => {
+            state.loading = false;
+            state.items = state.items.filter((product) => product.id !== action.payload)
+        })
+        builder.addCase(deleteProduct.rejected, (state) => {
+            state.loading = false;
+        })
+        // Ürünü sil END
     }
 })
 
