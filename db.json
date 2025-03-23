@@ -1,15 +1,6 @@
 {
   "products": [
     {
-      "id": "1",
-      "productName": "Su",
-      "productImage": "https://market-product-images-cdn.getirapi.com/product/2d72b49a-2678-4924-bbfd-5d548c2adf57.jpg",
-      "productPrice": 20,
-      "stockInformation": true,
-      "stockQuantity": 25,
-      "productWeight": 1
-    },
-    {
       "id": "2",
       "productName": "Buz Küpü",
       "productImage": "https://cdn.getir.com/product/5c73d40ba194970001855433_1551185494917.jpeg?v=1551185503101",
@@ -44,114 +35,6 @@
       "stockInformation": false,
       "stockQuantity": 0,
       "productWeight": 5
-    },
-    {
-      "id": "7",
-      "productName": "Pursü Cam",
-      "productImage": "https://market-product-images-cdn.getirapi.com/product/74f4658c-407b-4e00-adb6-b949570c1c56.jpg",
-      "productPrice": 28,
-      "stockInformation": true,
-      "stockQuantity": 100,
-      "productWeight": 2.8
-    },
-    {
-      "id": "8",
-      "productName": "Eti Sütlü Çikolatalı Gofret",
-      "productImage": "https://cdn.getir.com/product/5f564d513438be43c61a5820_tr_1599813129241.jpeg",
-      "productPrice": 55,
-      "stockInformation": true,
-      "stockQuantity": 128,
-      "productWeight": 1.1
-    },
-    {
-      "id": "90ef",
-      "productName": "a",
-      "productImage": "",
-      "productPrice": 0,
-      "productWeight": 0,
-      "stockInformation": true,
-      "stockQuantity": 0
-    },
-    {
-      "id": "ec92",
-      "productName": "11",
-      "productImage": "",
-      "productPrice": 0,
-      "productWeight": 0,
-      "stockInformation": true,
-      "stockQuantity": 123
-    },
-    {
-      "id": "cce7",
-      "productName": "aaa",
-      "productImage": "",
-      "productPrice": 0,
-      "productWeight": 0,
-      "stockInformation": true,
-      "stockQuantity": 0
-    },
-    {
-      "id": "580b",
-      "productName": "ab",
-      "productImage": "",
-      "productPrice": 0,
-      "productWeight": 0,
-      "stockInformation": true,
-      "stockQuantity": 0
-    },
-    {
-      "id": "009a",
-      "productName": "yeni",
-      "productImage": "",
-      "productPrice": 10,
-      "productWeight": 12,
-      "stockInformation": true,
-      "stockQuantity": 11
-    },
-    {
-      "id": "65f8",
-      "productName": "yeni1",
-      "productImage": "",
-      "productPrice": 0,
-      "productWeight": 0,
-      "stockInformation": false,
-      "stockQuantity": 0
-    },
-    {
-      "id": "8fe0",
-      "productName": "deneme",
-      "productImage": "",
-      "productPrice": 101,
-      "productWeight": 121,
-      "stockInformation": false,
-      "stockQuantity": 111
-    },
-    {
-      "id": "13cd",
-      "productName": "en yeni",
-      "productImage": "",
-      "productPrice": 28,
-      "productWeight": 28,
-      "stockInformation": true,
-      "stockQuantity": 28
-    },
-    {
-      "id": "3316",
-      "productName": "enyeni",
-      "productImage": "",
-      "productPrice": 55,
-      "productWeight": 55,
-      "stockInformation": true,
-      "stockQuantity": 55
-    },
-    {
-      "id": "8d47",
-      "productName": "3",
-      "productImage": "",
-      "productPrice": 40,
-      "productWeight": 6,
-      "stockInformation": true,
-      "stockQuantity": 5
     }
   ]
 }
