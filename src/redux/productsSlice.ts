@@ -6,7 +6,7 @@ interface IProductsState {
     loading: boolean;
 }
 
-const API_URL = "http://localhost:3002"
+const API_URL = process.env.NODE_ENV === "production" ? '/api' : "http://localhost:3002"
 
 type ProductBody = Omit<IProduct, "id">;
 
