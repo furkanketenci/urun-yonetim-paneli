@@ -1,15 +1,6 @@
 {
   "products": [
     {
-      "id": "2",
-      "productName": "Buz Küpü",
-      "productImage": "https://cdn.getir.com/product/5c73d40ba194970001855433_1551185494917.jpeg?v=1551185503101",
-      "productPrice": 42,
-      "stockInformation": true,
-      "stockQuantity": 35,
-      "productWeight": 5
-    },
-    {
       "id": "3",
       "productName": "Lime Paket",
       "productImage": "https://cdn.getir.com/product/2_lime3_lu_5ce6581cfd9b330001c4a889.png",
@@ -19,15 +10,6 @@
       "productWeight": 0.1
     },
     {
-      "id": "5",
-      "productName": "Ruffles Originals",
-      "productImage": "https://market-product-images-cdn.getirapi.com/product/b3a49501-8d15-4a95-a450-67edd9b7b1de.jpg",
-      "productPrice": 14,
-      "stockInformation": false,
-      "stockQuantity": 0,
-      "productWeight": 0.16
-    },
-    {
       "id": "6",
       "productName": "Sütaş Tam Yağlı Süt",
       "productImage": "https://market-product-images-cdn.getirapi.com/product/19d27573-9e76-4d14-befd-4093fb8c7e78.jpg",
@@ -35,6 +17,105 @@
       "stockInformation": false,
       "stockQuantity": 0,
       "productWeight": 5
+    },
+    {
+      "id": "2",
+      "productName": "Buz Küpü",
+      "productImage": "https://cdn.getir.com/product/5c73d40ba194970001855433_1551185494917.jpeg?v=1551185503101",
+      "productPrice": 42,
+      "stockInformation": true,
+      "stockQuantity": 35,
+      "productWeight": 5
+    },
+    {
+      "id": "5",
+      "productName": "Ruffles Originals",
+      "productImage": "https://market-product-images-cdn.getirapi.com/product/b3a49501-8d15-4a95-a450-67edd9b7b1de.jpg",
+      "productPrice": 14,
+      "stockInformation": true,
+      "stockQuantity": 0,
+      "productWeight": 5.55
+    },
+    {
+      "id": "10b0",
+      "productName": "a",
+      "productImage": "",
+      "productPrice": 12,
+      "productWeight": 121,
+      "stockInformation": true,
+      "stockQuantity": 11
+    },
+    {
+      "id": "49b4",
+      "productName": "fr",
+      "productImage": "",
+      "productPrice": 12,
+      "productWeight": 9,
+      "stockInformation": true,
+      "stockQuantity": 100
+    },
+    {
+      "id": "6295",
+      "productName": "bb",
+      "productImage": "",
+      "productPrice": 1,
+      "productWeight": 1,
+      "stockInformation": true,
+      "stockQuantity": 1
+    },
+    {
+      "id": "0f53",
+      "productName": "A",
+      "productImage": "",
+      "productPrice": 45,
+      "productWeight": 65,
+      "stockInformation": true,
+      "stockQuantity": 55
+    },
+    {
+      "id": "6991",
+      "productName": "ELMA",
+      "productImage": "",
+      "productPrice": 80,
+      "productWeight": 99999,
+      "stockInformation": false,
+      "stockQuantity": 1
+    },
+    {
+      "id": "d609",
+      "productName": "Portakal",
+      "productImage": "",
+      "productPrice": 62,
+      "productWeight": 500,
+      "stockInformation": true,
+      "stockQuantity": 50000
+    },
+    {
+      "id": "3d69",
+      "productName": "Kivi",
+      "productImage": "",
+      "productPrice": 28,
+      "productWeight": 900,
+      "stockInformation": false,
+      "stockQuantity": 0
+    },
+    {
+      "id": "1e84",
+      "productName": "123",
+      "productImage": "",
+      "productPrice": 123123,
+      "productWeight": 123,
+      "stockInformation": true,
+      "stockQuantity": 123
+    },
+    {
+      "id": "7e91",
+      "productName": "aadasdasdasdaadasdasdasdaadasdasdasdaadasdasdasdaadasdasdasd",
+      "productImage": "",
+      "productPrice": 123123,
+      "productWeight": 435340,
+      "stockInformation": true,
+      "stockQuantity": 123123
     }
   ]
 }
