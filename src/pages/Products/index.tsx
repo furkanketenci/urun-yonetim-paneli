@@ -1,14 +1,15 @@
 import { Button } from "antd"
 import "./index.scss"
-import { useState } from "react";
-import AddProductForm from "../../components/AddProductForm";
 import ProductList from "../../components/ProductList";
+import AddAndEditProductForm from "../../components/AddAndEditProductForm";
+import { useDispatch, useSelector } from "react-redux";
+import { showAndHide } from "../../redux/modalSlice";
 
 const Products = () => {
-    const [isShowAddProductForm, setIsShowAddProductForm] = useState(false);
+    const dispatch = useDispatch();
 
-    const toggleAddProductForm = () => {
-        setIsShowAddProductForm(!isShowAddProductForm)
+    const showModalTrigger = (isShowModal: boolean) => {
+        dispatch(showAndHide(isShowModal))
     }
 
     return (
@@ -16,18 +17,14 @@ const Products = () => {
             <div className="productsTitle">ÜRÜNLER</div>
             <div className="productsButtonWrapper">
                 <Button
-                    onClick={toggleAddProductForm}
+                    onClick={() => showModalTrigger(true)}
                     className="productsBtn"
+                    type="primary"
                 >
                     Yeni Ürün Ekle
                 </Button>
 
-                {isShowAddProductForm &&
-                    <AddProductForm
-                        visibleModal={isShowAddProductForm}
-                        closeModal={toggleAddProductForm}
-                    />
-                }
+                <AddAndEditProductForm />
             </div>
             <ProductList />
         </div>
