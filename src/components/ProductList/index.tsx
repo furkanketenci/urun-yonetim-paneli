@@ -7,6 +7,8 @@ import { Button, Input, Modal, notification, Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IProduct } from "../../types";
 import { setModalContent, showAndHide } from "../../redux/modalSlice";
+import { useMediaQuery } from "react-responsive";
+import { breakpoints } from "../../utils/responsive";
 
 const ProductList = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -71,6 +73,7 @@ const ProductList = () => {
     const filteredItems = items.filter(item =>
         item.productName.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
     );
+    const isMobile = useMediaQuery({ maxWidth: breakpoints.xl });
 
     const columns: ColumnsType<IProduct> = [
         {
@@ -129,7 +132,7 @@ const ProductList = () => {
             key: 'actions',
             align: "center",
             render: (_, item) => (
-                <Space size="middle">
+                <Space size={isMobile ? "small" : "middle"} direction={isMobile ? "vertical" : "horizontal"}>
                     <Button
                         type="primary"
                         onClick={() => {
@@ -144,6 +147,7 @@ const ProductList = () => {
             ),
         },
     ]
+
 
     return (
         <>
@@ -162,6 +166,7 @@ const ProductList = () => {
                     loading={loading}
                     size="large"
                     rowClassName={() => 'table-row'}
+                    scroll={{ x: 992 }}
                 />
                 <Modal
                     open={isShowDeleteModal}

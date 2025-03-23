@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .homepageContainer {
     display: flex;
     flex-direction: column;
@@ -10,11 +12,24 @@
         font-size: 36px;
         font-weight: 600;
         margin-bottom: 15px;
+
+        @include lg {
+            font-size: 24px;
+            text-align: center;
+        }
+
     }
 
     .homepageSubText {
         font-size: 20px;
         margin-bottom: 15px;
+
+        @include lg {
+            font-size: 18px;
+            text-align: center;
+        }
+
+
     }
 
     .homepageBtn {
@@ -23,5 +38,12 @@
         height: 40px;
         border-radius: 2px;
         border: 1px solid #000000;
+
+        @include lg {
+            font-weight: 500;
+            font-size: 18px;
+        }
+
+
     }
 }

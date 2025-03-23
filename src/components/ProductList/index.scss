@@ -1,9 +1,25 @@
+@import "../../styles/variables.scss";
+
 .productListContainer {
     margin-top: 40px;
+
+    @include lg {
+        margin-top: 20px;
+    }
 
     .searchInput {
         margin-bottom: 20px;
         width: 20%;
+
+
+
+        @include md {
+            width: 100%;
+        }
+
+        @include lg {
+            width: 40%;
+        }
     }
 }
 

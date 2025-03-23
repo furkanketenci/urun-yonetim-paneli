@@ -1,9 +1,9 @@
 import { Button } from "antd"
 import "./index.scss"
-import ProductList from "../../components/ProductList";
 import AddAndEditProductForm from "../../components/AddAndEditProductForm";
 import { useDispatch } from "react-redux";
 import { showAndHide } from "../../redux/modalSlice";
+import ProductList from "../../components/ProductList";
 
 const Products = () => {
     const dispatch = useDispatch();

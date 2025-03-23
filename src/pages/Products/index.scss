@@ -1,17 +1,36 @@
+@import "../../styles/variables.scss";
+
 .productsContainer {
-    // width: 100%;
-    // height: 100vh;
-    padding: 60px;
+    padding: 40px;
+
+    @include lg {
+        padding: 20px;
+    }
 
     .productsTitle {
         font-size: 32px;
         font-weight: 500;
         text-align: center;
+
+        @include lg {
+            margin-bottom: 25px;
+        }
     }
 
     .productsButtonWrapper {
         display: flex;
         justify-content: flex-end;
+
+        @include lg {
+            margin-bottom: 20px;
+        }
+
+        .productsBtn {
+            @include lg {
+                height: 35px;
+                font-weight: 500;
+            }
+        }
     }
 
 }
