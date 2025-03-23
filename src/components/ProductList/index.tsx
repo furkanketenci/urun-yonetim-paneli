@@ -163,6 +163,7 @@ const ProductList = () => {
                 <Table
                     columns={columns}
                     dataSource={filteredItems}
+                    rowKey="id"
                     loading={loading}
                     size="large"
                     rowClassName={() => 'table-row'}
