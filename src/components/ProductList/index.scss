@@ -1,5 +1,10 @@
 .productListContainer {
     margin-top: 40px;
+
+    .searchInput {
+        margin-bottom: 20px;
+        width: 20%;
+    }
 }
 
 .deleteModalFooterWrapper {
@@ -26,4 +31,8 @@
 .out-of-stock {
     color: #ff4d4f;
     font-weight: 500;
+}
+
+.table-row {
+    height: 90px;
 }

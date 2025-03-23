@@ -1,11 +1,13 @@
 
 
 import { createSlice } from "@reduxjs/toolkit"
+import { IProduct } from "../types";
 
 interface IModal {
     isShow: boolean;
-    modalContent: any;
+    modalContent: IProduct | null;
 }
+
 
 const initialState: IModal = {
     isShow: false,

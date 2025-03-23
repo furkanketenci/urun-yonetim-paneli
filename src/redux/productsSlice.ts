@@ -8,81 +8,50 @@ interface IProductsState {
 
 const API_URL = "http://localhost:3002"
 
-// tüm ürünleri getirme işlemi start
+type ProductBody = Omit<IProduct, "id">;
+
+const apiCall = async (url: string, method: string, body?: ProductBody) => {
+    const response = await fetch(url, {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: body ? JSON.stringify(body) : undefined,
+    });
+    if (!response.ok) {
+        throw new Error(`API call failed with status: ${response.status}`);
+    }
+    return response.json();
+}
+
 export const allProducts = createAsyncThunk(
     "allProducts",
     async () => {
-        const response = await fetch(`${API_URL}/products`);
-        if (!response.ok) {
-            throw new Error("Ürünler çekilirken bir hata oluştu!")
-        }
-        const data = await response.json();
-        return data;
+        return await apiCall(`${API_URL}/products`, "GET");
     }
 )
-// tüm ürünleri getirme işlemi end
 
-// ürün ekleme işlemi start
 export const addProduct = createAsyncThunk(
     "addProduct",
     async (product: Omit<IProduct, "id">) => {
-        const response = await fetch(`${API_URL}/products`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(product)
-        })
-        if (!response.ok) {
-            throw new Error("Ürün eklenirken bir hata oluştu!")
-        }
-        const data = await response.json();
-        return data;
+        return await apiCall(`${API_URL}/products`, "POST", product);
     }
 )
-// ürün ekleme işlemi start
-
-// ürün güncelleme işlemi start
 
 export const updateProduct = createAsyncThunk(
     "updateProduct",
     async (product: IProduct) => {
-        const response = await fetch(`${API_URL}/products/${product.id}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(product)
-        })
-        if (!response.ok) {
-            throw new Error("Ürün güncellenirken bir hata oluştu!")
-        }
-        const data = await response.json();
-        return data;
+        return await apiCall(`${API_URL}/products/${product.id}`, "PUT", product);
     }
 )
-
-// ürün güncelleme işlemi end
-
-// ürün silme işlemi start 
 
 export const deleteProduct = createAsyncThunk(
     "deleteProduct",
     async (productId: number) => {
-        const response = await fetch(`${API_URL}/products/${productId}`, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        if (!response.ok) {
-            throw new Error("Ürün silinirken bir hata oluştu!");
-        }
+        await apiCall(`${API_URL}/products/${productId}`, "DELETE");
         return productId;
     }
 )
-
-// ürün silme işlemi end
 
 const initialState: IProductsState = {
     items: [],
@@ -129,7 +98,7 @@ export const productsSlice = createSlice({
         builder.addCase((updateProduct.fulfilled), (state, action) => {
             state.loading = false;
             const index = state.items.findIndex(item => item.id === action.payload.id);
-            if (index != -1) {
+            if (index !== -1) {
                 state.items[index] = action.payload
             }
         });
