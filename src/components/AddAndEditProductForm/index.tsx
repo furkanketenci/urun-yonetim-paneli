@@ -6,15 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct, updateProduct } from "../../redux/productsSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 import { showAndHide } from "../../redux/modalSlice";
-
-interface IProductForm {
-    productName: string;
-    productImage?: string;
-    productPrice: number;
-    stockInformation: boolean;
-    stockQuantity: number;
-    productWeight: number;
-}
+import { IProductForm } from "../../types";
 
 const AddAndEditProductForm = () => {
     const dispatch = useDispatch<AppDispatch>();
