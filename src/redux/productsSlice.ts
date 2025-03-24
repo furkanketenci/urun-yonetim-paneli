@@ -7,19 +7,9 @@ interface IProductsState {
 }
 
 
-const getBaseUrl = () => {
-    if (process.env.NODE_ENV === "production") {
-        if (typeof window !== 'undefined') {
-            const protocol = window.location.protocol;
-            const host = window.location.host;
-            return `${protocol}//${host}/api`;
-        }
-        return 'https://urun-yonetim-paneli.vercel.app/api';
-    }
-    return "http://localhost:3002";
-};
-
-const API_URL = getBaseUrl();
+const API_URL = process.env.NODE_ENV === "production"
+    ? "/api"
+    : "http://localhost:3002";
 
 type ProductBody = Omit<IProduct, "id">;
 

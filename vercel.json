@@ -16,19 +16,15 @@
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "/api/server.js"
+            "dest": "api/server.js"
         },
         {
             "src": "/products",
-            "dest": "/api/server.js"
+            "dest": "api/server.js"
         },
         {
-            "src": "/(.*)",
+            "src": "/(.*\\.(js|css|svg|png|jpg|jpeg|gif|ico|json|woff|woff2|ttf|eot))",
             "dest": "/build/$1"
-        },
-        {
-            "src": "/(.*).(js|css|svg|png|jpg|jpeg|gif|ico|json|woff|woff2|ttf|eot)",
-            "dest": "/build/$1.$2"
         },
         {
             "src": "/(.*)",
